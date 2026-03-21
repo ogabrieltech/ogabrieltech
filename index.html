@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criação de Sites, Sistemas e Automações em SP | ogabrieltech.com.br</title>
+  <meta name="description" content="Web designer e desenvolvedor em São Paulo. Crio sites profissionais, sistemas, automações e gerencio redes sociais para negócios que querem crescer. Orçamento grátis.">
+  <meta name="keywords" content="criação de sites SP, web designer São Paulo, desenvolvimento de sistemas, automação de processos, gestão de redes sociais, freelancer desenvolvimento web">
+  <meta name="author" content="Gabriel | ogabrieltech.com.br">
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical" href="https://ogabrieltech.com.br">
+
+  <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ogabrieltech.com.br">
+  <meta property="og:title" content="Criação de Sites, Sistemas e Automações | ogabrieltech.com.br">
+  <meta property="og:description" content="Web designer e desenvolvedor em SP. Sites profissionais em 7 dias, sistemas, automações e gestão de redes sociais. Primeira consulta grátis.">
+  <meta property="og:image" content="https://ogabrieltech.com.br/og-image.png">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="ogabrieltech.com.br">
+
+  <!-- Twitter/X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Criação de Sites, Sistemas e Automações | ogabrieltech.com.br">
+  <meta name="twitter:description" content="Web designer e desenvolvedor em SP. Sites profissionais em 7 dias, sistemas, automações e gestão de redes sociais.">
+  <meta name="twitter:image" content="https://ogabrieltech.com.br/og-image.png">
+
+  <!-- Schema.org — LocalBusiness + Person -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://ogabrieltech.com.br/#business",
+        "name": "ogabrieltech.com.br",
+        "description": "Criação de sites profissionais, sistemas, automações e gestão de redes sociais para negócios em São Paulo.",
+        "url": "https://ogabrieltech.com.br",
+        "telephone": "+5511911137920",
+        "email": "contato@ogabrieltech.com.br",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "São Paulo",
+          "addressRegion": "SP",
+          "addressCountry": "BR"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "-23.5505",
+          "longitude": "-46.6333"
+        },
+        "sameAs": [
+          "https://instagram.com/ogabriel.tech"
+        ],
+        "priceRange": "$$",
+        "openingHours": "Mo-Fr 09:00-18:00",
+        "serviceArea": {
+          "@type": "Country",
+          "name": "Brasil"
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Serviços Digitais",
+          "itemListElement": [
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Criação de Sites Profissionais"}},
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Desenvolvimento de Sistemas"}},
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Automação de Processos"}},
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Gestão de Redes Sociais"}}
+          ]
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://ogabrieltech.com.br/#person",
+        "name": "Gabriel",
+        "jobTitle": "Web Designer & Analista de Sistemas",
+        "url": "https://ogabrieltech.com.br",
+        "sameAs": ["https://instagram.com/ogabriel.tech"],
+        "worksFor": {"@id": "https://ogabrieltech.com.br/#business"}
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://ogabrieltech.com.br/#website",
+        "url": "https://ogabrieltech.com.br",
+        "name": "ogabrieltech.com.br",
+        "description": "Web designer e desenvolvedor em São Paulo",
+        "inLanguage": "pt-BR"
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #3B82F6;
+      --blue-dark: #2563EB;
+      --black: #000000;
+      --dark: #0A0A0A;
+      --gray1: #111111;
+      --gray2: #1A1A1A;
+      --gray3: #2A2A2A;
+      --white: #FFFFFF;
+      --muted: #666666;
+      --light: #AAAAAA;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── GRID BACKGROUND ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--gray2) 1px, transparent 1px),
+        linear-gradient(90deg, var(--gray2) 1px, transparent 1px);
+      background-size: 80px 80px;
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-8px); }
+    }
+    @keyframes scanline {
+      from { transform: translateY(-100%); }
+      to   { transform: translateY(100vh); }
+    }
+
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards;
+    }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.35s; }
+    .delay-4 { animation-delay: 0.5s; }
+    .delay-5 { animation-delay: 0.65s; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gray2);
+    }
+
+    .nav-logo {
+      font-family: 'Sora', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: var(--blue); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      background: var(--blue);
+      color: var(--white) !important;
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-weight: 600 !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--blue-dark) !important; color: var(--white) !important; }
+
+    /* ── SECTIONS ── */
+    section { position: relative; z-index: 1; }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 64px;
+    }
+
+    .hero-inner {
+      width: 100%;
+      padding: 100px 0 80px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gray1);
+      border: 1px solid var(--gray3);
+      border-radius: 100px;
+      padding: 6px 16px 6px 10px;
+      font-size: 13px;
+      color: var(--light);
+      margin-bottom: 40px;
+    }
+    .hero-badge-dot {
+      width: 7px; height: 7px;
+      background: var(--blue);
+      border-radius: 50%;
+      animation: pulse-dot 2s infinite;
+    }
+
+    .hero-title {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(52px, 7vw, 96px);
+      font-weight: 800;
+      line-height: 1.02;
+      letter-spacing: -2px;
+      margin-bottom: 28px;
+    }
+    .hero-title .accent { color: var(--blue); }
+    .hero-title .dim    { color: var(--gray3); }
+
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 19px);
+      color: var(--muted);
+      max-width: 540px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--blue);
+      color: var(--white);
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-primary:hover {
+      background: var(--blue-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--light);
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid var(--gray3);
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-ghost:hover {
+      border-color: var(--blue);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 72px;
+      padding-top: 40px;
+      border-top: 1px solid var(--gray2);
+    }
+    .stat-num {
+      font-family: 'Sora', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -1px;
+    }
+    .stat-num span { color: var(--blue); }
+    .stat-label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── SERVICES ── */
+    #servicos {
+      padding: 120px 0;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--blue);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 64px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--gray2);
+      border: 1px solid var(--gray2);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .service-card {
+      background: var(--gray1);
+      padding: 40px;
+      position: relative;
+      transition: background 0.2s;
+      cursor: default;
+    }
+    .service-card:hover { background: var(--gray2); }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--blue);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .service-card:hover::before { opacity: 1; }
+
+    .service-icon {
+      width: 44px; height: 44px;
+      background: rgba(59,130,246,0.1);
+      border: 1px solid rgba(59,130,246,0.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .service-icon svg { width: 20px; height: 20px; stroke: var(--blue); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+    .service-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--white);
+    }
+
+    .service-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .service-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .tag {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--light);
+      background: var(--gray2);
+      border: 1px solid var(--gray3);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* ── HOW IT WORKS ── */
+    #como-funciona {
+      padding: 120px 0;
+      border-top: 1px solid var(--gray2);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      margin-top: 64px;
+    }
+
+    .step {
+      position: relative;
+    }
+
+    .step-num {
+      font-family: 'Sora', sans-serif;
+      font-size: 64px;
+      font-weight: 800;
+      color: var(--gray2);
+      line-height: 1;
+      margin-bottom: 16px;
+      letter-spacing: -2px;
+    }
+
+    .step-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .step-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .step-line {
+      position: absolute;
+      top: 32px;
+      right: -20px;
+      width: 40px;
+      height: 1px;
+      background: var(--gray3);
+    }
+    .step:last-child .step-line { display: none; }
+
+    /* ── DIFERENCIAIS ── */
+    #diferenciais {
+      padding: 120px 0;
+      border-top: 1px solid var(--gray2);
+    }
+
+    .diff-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 64px;
+    }
+
+    .diff-card {
+      background: var(--gray1);
+      border: 1px solid var(--gray2);
+      border-radius: 12px;
+      padding: 28px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .diff-card:hover {
+      border-color: var(--blue);
+      transform: translateY(-3px);
+    }
+
+    .diff-icon {
+      font-size: 28px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .diff-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .diff-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── CTA SECTION ── */
+    #contato {
+      padding: 120px 0;
+      border-top: 1px solid var(--gray2);
+    }
+
+    .cta-box {
+      background: var(--gray1);
+      border: 1px solid var(--gray2);
+      border-radius: 20px;
+      padding: 72px 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: 50%;
+      transform: translateX(-50%);
+      width: 200px; height: 1px;
+      background: var(--blue);
+    }
+
+    .cta-label {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--blue);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .cta-title {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .cta-sub {
+      font-size: 17px;
+      color: var(--muted);
+      margin-bottom: 40px;
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-wpp {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #25D366;
+      color: var(--white);
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.15s;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-wpp:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--gray2);
+      padding: 40px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-family: 'Sora', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .footer-logo span { color: var(--blue); }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--white); }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--gray3);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .container { padding: 0 20px; }
+
+      .hero-inner { padding: 80px 0 60px; }
+      .hero-stats { gap: 28px; flex-wrap: wrap; }
+
+      .services-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; gap: 32px; }
+      .step-line { display: none; }
+      .diff-grid { grid-template-columns: 1fr; }
+
+      .cta-box { padding: 48px 24px; }
+      .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">ogabrieltech<span>.com.br</span></a>
+    <ul class="nav-links">
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#como-funciona">Como funciona</a></li>
+      <li><a href="#diferenciais">Por que eu</a></li>
+      <li><a href="#contato" class="nav-cta">Falar agora</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-inner">
+
+        <div class="hero-badge fade-up delay-1">
+          <span class="hero-badge-dot"></span>
+          Disponível para novos projetos
+        </div>
+
+        <h1 class="hero-title fade-up delay-2">
+          Web designer &<br>
+          <span class="accent">dev freelancer</span><br>
+          <span class="dim">em São Paulo.</span>
+        </h1>
+
+        <p class="hero-sub fade-up delay-3">
+          Sites, sistemas, automações e gestão de redes sociais para negócios que querem crescer sem depender de sorte.
+        </p>
+
+        <div class="hero-actions fade-up delay-4">
+          <a href="#contato" class="btn-primary">
+            Quero um orçamento
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#servicos" class="btn-ghost">
+            Ver serviços
+          </a>
+        </div>
+
+        <div class="hero-stats fade-up delay-5">
+          <div>
+            <div class="stat-num">+<span>30</span></div>
+            <div class="stat-label">Projetos entregues</div>
+          </div>
+          <div>
+            <div class="stat-num"><span>7</span>d</div>
+            <div class="stat-label">Prazo médio de entrega</div>
+          </div>
+          <div>
+            <div class="stat-num"><span>100</span>%</div>
+            <div class="stat-label">Foco em resultado</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section id="servicos">
+    <div class="container">
+      <span class="section-label">Serviços</span>
+      <h2 class="section-title">O que eu entrego<br>pra você</h2>
+      <p class="section-sub">Cada serviço é construído com foco em um objetivo: fazer o seu negócio crescer.</p>
+
+      <div class="services-grid">
+
+        <!-- Sites -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" aria-label="Ícone de sites profissionais"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+          <div class="service-title">Sites Profissionais</div>
+          <div class="service-desc">
+            Sites rápidos, modernos e focados em converter visitante em cliente. Design único, responsivo em qualquer tela e otimizado para aparecer no Google.
+          </div>
+          <div class="service-tags">
+            <span class="tag">Landing Page</span>
+            <span class="tag">Site institucional</span>
+            <span class="tag">SEO</span>
+            <span class="tag">Responsivo</span>
+          </div>
+        </div>
+
+        <!-- Sistemas -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div class="service-title">Sistemas & Automações</div>
+          <div class="service-desc">
+            Processos que rodam sozinhos enquanto você foca no que importa. Automação de atendimento, integrações entre plataformas e sistemas sob medida.
+          </div>
+          <div class="service-tags">
+            <span class="tag">N8N / Make</span>
+            <span class="tag">Integrações</span>
+            <span class="tag">Chatbot</span>
+            <span class="tag">APIs</span>
+          </div>
+        </div>
+
+        <!-- Social Media -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <div class="service-title">Gestão de Redes Sociais</div>
+          <div class="service-desc">
+            Estratégia, criação de conteúdo e gestão completa do seu Instagram. Crescimento real com posts que engajam e convertem seguidores em clientes.
+          </div>
+          <div class="service-tags">
+            <span class="tag">Instagram</span>
+            <span class="tag">Conteúdo</span>
+            <span class="tag">Reels</span>
+            <span class="tag">Estratégia</span>
+          </div>
+        </div>
+
+        <!-- Consultoria -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <div class="service-title">Consultoria Digital</div>
+          <div class="service-desc">
+            Análise completa da sua presença digital com plano de ação claro. Ideal para quem quer entender exatamente o que precisa mudar para crescer.
+          </div>
+          <div class="service-tags">
+            <span class="tag">Diagnóstico</span>
+            <span class="tag">Plano de ação</span>
+            <span class="tag">Mentoria</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section id="como-funciona">
+    <div class="container">
+      <span class="section-label">Processo</span>
+      <h2 class="section-title">Como funciona</h2>
+      <p class="section-sub">Simples, direto e sem enrolação. Do primeiro contato à entrega.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-line"></div>
+          <div class="step-title">Conversa inicial</div>
+          <div class="step-desc">Você me conta o que precisa. Entendo o negócio, os objetivos e o que está travando o crescimento hoje.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-line"></div>
+          <div class="step-title">Proposta clara</div>
+          <div class="step-desc">Recebe uma proposta com escopo, prazo e valor definidos. Sem surpresa, sem taxa extra no meio do projeto.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-line"></div>
+          <div class="step-title">Entrega e resultado</div>
+          <div class="step-desc">Execução com atualizações constantes. Ao final, você recebe o projeto pronto para gerar resultado imediatamente.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFERENCIAIS -->
+  <section id="diferenciais">
+    <div class="container">
+      <span class="section-label">Por que eu</span>
+      <h2 class="section-title">O que me diferencia</h2>
+      <p class="section-sub">Não sou agência. Sou um profissional que entende de tecnologia e de negócio.</p>
+
+      <div class="diff-grid">
+        <div class="diff-card">
+          <span class="diff-icon">⚡</span>
+          <div class="diff-title">Entrega rápida</div>
+          <div class="diff-desc">A maioria dos projetos entregue em até 7 dias. Sem fila de espera de meses como em agências.</div>
+        </div>
+        <div class="diff-card">
+          <span class="diff-icon">🎯</span>
+          <div class="diff-title">Foco em resultado</div>
+          <div class="diff-desc">Não entrego só código bonito. Entrego sites que convertem, automações que economizam tempo e conteúdo que vende.</div>
+        </div>
+        <div class="diff-card">
+          <span class="diff-icon">💬</span>
+          <div class="diff-title">Comunicação direta</div>
+          <div class="diff-desc">Sem intermediários. Você fala direto comigo do início ao fim. Atualizações constantes e respostas rápidas.</div>
+        </div>
+        <div class="diff-card">
+          <span class="diff-icon">🔧</span>
+          <div class="diff-title">Suporte pós-entrega</div>
+          <div class="diff-desc">Não some depois de entregar. Suporte garantido para ajustes e dúvidas após a conclusão do projeto.</div>
+        </div>
+        <div class="diff-card">
+          <span class="diff-icon">📈</span>
+          <div class="diff-title">Visão de negócio</div>
+          <div class="diff-desc">Sou analista de sistemas que pensa como empreendedor. A solução técnica sempre serve o objetivo de negócio.</div>
+        </div>
+        <div class="diff-card">
+          <span class="diff-icon">💰</span>
+          <div class="diff-title">Preço justo</div>
+          <div class="diff-desc">Qualidade de agência grande com preço de profissional independente. Você paga pelo resultado, não pela estrutura.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="contato">
+    <div class="container">
+      <div class="cta-box">
+        <span class="cta-label">Vamos conversar</span>
+        <h2 class="cta-title">Pronto para crescer<br>com tecnologia?</h2>
+        <p class="cta-sub">Me conta o que você precisa. Respondo em até 2 horas e a conversa é gratuita.</p>
+        <div class="cta-actions">
+          <a href="https://wa.me/5511911137920?text=Olá%20Gabriel%2C%20vim%20pelo%20site%20e%20quero%20um%20orçamento!" class="btn-wpp" target="_blank">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Chamar no WhatsApp
+          </a>
+          <a href="mailto:contato@ogabrieltech.com.br" class="btn-ghost">
+            Enviar e-mail
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <a href="#" class="footer-logo">ogabrieltech<span>.com.br</span></a>
+        <ul class="footer-links">
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#como-funciona">Processo</a></li>
+          <li><a href="#contato">Contato</a></li>
+          <li><a href="https://instagram.com/ogabriel.tech" target="_blank">Instagram</a></li>
+        </ul>
+        <span class="footer-copy">© 2025 ogabrieltech.com.br</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll suave no nav
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Intersection Observer para animações ao scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.service-card, .step, .diff-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
