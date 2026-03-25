@@ -1602,7 +1602,8 @@ function editarTransacao(id) {
 function excluirTransacao(id) {
   if (!confirm('Excluir esta transação?')) return;
   state.transacoes = state.transacoes.filter(x => x.id !== id);
-  save('transacoes');
+  _origSave('transacoes');
+  deleteFromSupabase('transacoes', id);
   toast('Transação excluída');
   renderTransacoes();
   renderDashboard();
@@ -1705,7 +1706,8 @@ function togglePago(id) {
 function excluirConta(id) {
   if (!confirm('Excluir esta conta?')) return;
   state.contas = state.contas.filter(x => x.id !== id);
-  save('contas');
+  _origSave('contas');
+  deleteFromSupabase('contas', id);
   renderContas();
   renderDashboard();
 }
@@ -1803,8 +1805,10 @@ function adicionarValorMeta() {
 function excluirMeta(id) {
   if (!confirm('Excluir esta meta?')) return;
   state.metas = state.metas.filter(x => x.id !== id);
-  save('metas');
+  _origSave('metas');
+  deleteFromSupabase('metas', id);
   renderMetas();
+  renderDashboard();
 }
 
 function renderMetas() {
@@ -1866,7 +1870,8 @@ function salvarCategoria() {
 function excluirCategoria(id) {
   if (!confirm('Excluir esta categoria?')) return;
   state.categorias = state.categorias.filter(x => x.id !== id);
-  save('categorias');
+  _origSave('categorias');
+  deleteFromSupabase('categorias', id);
   renderCategorias();
 }
 
@@ -2207,13 +2212,24 @@ async function loginGoogle() {
 }
 
 async function fazerLogout() {
-  await supa.auth.signOut();
+  try {
+    await supa.auth.signOut();
+  } catch(e) {
+    console.error('Erro no signOut:', e);
+  }
   currentUser = null;
-  state.transacoes = []; state.contas = []; state.metas = [];
-  state.categorias = []; state.recorrentes = []; state.cartoes = []; state.gastosCartao = [];
-  document.getElementById('auth-screen').style.display = 'flex';
-  document.getElementById('license-screen').classList.add('hidden');
-  toast('Até logo!');
+  // Limpa TUDO do localStorage
+  Object.keys(STORAGE_KEYS).forEach(function(key) {
+    localStorage.removeItem(STORAGE_KEYS[key]);
+  });
+  localStorage.removeItem('fos_license_v2');
+  localStorage.removeItem('fos_onboarding_done');
+  localStorage.removeItem('fos_pwa_dismissed');
+  localStorage.removeItem('fos_notif_dispensado');
+  localStorage.removeItem('fos_notif_ativo');
+  localStorage.removeItem('fos_ultima_verif');
+  // Recarrega a página — forma mais segura de resetar tudo
+  window.location.reload();
 }
 
 async function resetarSenha() {
@@ -2263,8 +2279,19 @@ async function syncCategoriasToSupabase() {
 
 // ── OVERRIDE SAVE PARA SUPABASE ──────────────────────
 const _origSave = save;
+
+// SUBSTITUI save() globalmente — agora salva local E Supabase
+save = function(key) {
+  // Sempre salva no localStorage primeiro (instantâneo)
+  _origSave(key);
+  // Se logado, também salva no Supabase (async, em background)
+  if (currentUser) {
+    saveToSupabase(key);
+  }
+};
+
 async function saveToSupabase(key) {
-  if (!currentUser) { _origSave(key); return; }
+  if (!currentUser) return;
   const uid = currentUser.id;
   try {
     if (key === 'transacoes') {
@@ -2289,7 +2316,7 @@ async function saveToSupabase(key) {
       const rows = state.gastosCartao.map(g => ({ id:g.id, user_id:uid, descricao:g.desc, cartao_id:g.cartaoId, data:g.data, valor:g.valor, cat:g.cat, parcelas:g.parcelas||1, obs:g.obs||'' }));
       await supa.from('gastos_cartao').upsert(rows);
     }
-  } catch(e) { console.error('SaveToSupabase error:', e); _origSave(key); }
+  } catch(e) { console.error('SaveToSupabase error:', e); }
 }
 
 // Deletes no Supabase
@@ -2624,7 +2651,8 @@ function editarRecorrente(id) {
 function excluirRecorrente(id) {
   if (!confirm('Excluir este recorrente?')) return;
   state.recorrentes = state.recorrentes.filter(x => x.id !== id);
-  save('recorrentes');
+  _origSave('recorrentes');
+  deleteFromSupabase('recorrentes', id);
   renderRecorrentes();
   renderDashboard();
   toast('Recorrente excluído');
@@ -2756,9 +2784,14 @@ function editarCartao(id) {
 
 function excluirCartao(id) {
   if (!confirm('Excluir este cartão e todos os gastos?')) return;
+  // Deletar gastos associados no Supabase
+  var gastosDoCartao = state.gastosCartao.filter(x => x.cartaoId === id);
+  gastosDoCartao.forEach(function(g) { deleteFromSupabase('gastos_cartao', g.id); });
   state.cartoes = state.cartoes.filter(x => x.id !== id);
   state.gastosCartao = state.gastosCartao.filter(x => x.cartaoId !== id);
-  save('cartoes'); save('gastosCartao');
+  _origSave('cartoes');
+  _origSave('gastosCartao');
+  deleteFromSupabase('cartoes', id);
   renderCartao();
   renderDashboard();
 }
@@ -2811,7 +2844,8 @@ function editarGastoCartao(id) {
 function excluirGastoCartao(id) {
   if (!confirm('Excluir este gasto?')) return;
   state.gastosCartao = state.gastosCartao.filter(x => x.id !== id);
-  save('gastosCartao');
+  _origSave('gastosCartao');
+  deleteFromSupabase('gastos_cartao', id);
   renderCartao();
   renderDashboard();
 }
@@ -3251,6 +3285,20 @@ function salvarOrcamento() {
   renderOrcamento();
 }
 
+function editarOrcamento(id) {
+  const o = state.orcamentos.find(x => x.id === id);
+  if (!o) return;
+  openModal('modal-orcamento');
+  // Popula selects
+  const sel = document.getElementById('orc-cat');
+  if (sel) {
+    const despCats = state.categorias.filter(c => c.tipo === 'despesa');
+    sel.innerHTML = despCats.map(c => '<option>' + c.nome + '</option>').join('');
+    sel.value = o.cat;
+  }
+  document.getElementById('orc-limite').value = o.limite;
+}
+
 function excluirOrcamento(id) {
   if (!confirm('Remover este limite?')) return;
   state.orcamentos = state.orcamentos.filter(o => o.id !== id);
@@ -3288,7 +3336,7 @@ function renderOrcamento() {
 
   const grid = document.getElementById('orc-grid');
   if (!state.orcamentos.length) {
-    grid.innerHTML = '<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📊</div><div class="empty-text">Nenhum orçamento definido. Clique em "Definir limite" para começar.</div></div>';
+    grid.innerHTML = '<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📊</div><div class="empty-text">Nenhum orçamento definido. Clique em "Definir limite" para começar.</div><div class="empty-action"><button class="btn btn-primary btn-sm" onclick="openModal(\'modal-orcamento\')">+ Definir limite</button></div></div>';
     return;
   }
   grid.innerHTML = state.orcamentos.map(o => {
@@ -3298,7 +3346,8 @@ function renderOrcamento() {
     const catInfo = getCat(o.cat);
     return '<div class="orc-card">' +
       '<div class="orc-header"><div class="orc-cat-name"><span class="cat-dot" style="background:' + catInfo.cor + '"></span>' + o.cat + '</div>' +
-      '<button class="btn btn-danger btn-xs" onclick="excluirOrcamento(\'' + o.id + '\')">✕</button></div>' +
+      '<div style="display:flex;gap:4px"><button class="btn btn-ghost btn-xs" onclick="editarOrcamento(\'' + o.id + '\')">✎</button>' +
+      '<button class="btn btn-danger btn-xs" onclick="excluirOrcamento(\'' + o.id + '\')">✕</button></div></div>' +
       '<div class="orc-values"><span class="orc-gasto" style="color:' + cor + '">' + fmt(gasto) + '</span><span class="orc-limite">de ' + fmt(o.limite) + '</span></div>' +
       '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">' +
       '<span style="font-size:11px;color:var(--muted)">Progresso</span>' +
@@ -3622,11 +3671,13 @@ async function limparDados() {
   const confirm2 = confirm('Última confirmação — apagar tudo mesmo?');
   if (!confirm2) return;
 
+  toast('Apagando dados...');
+
   // Deleta do Supabase se logado
   if (currentUser) {
     const uid = currentUser.id;
     try {
-      await Promise.all([
+      var results = await Promise.all([
         supa.from('transacoes').delete().eq('user_id', uid),
         supa.from('contas').delete().eq('user_id', uid),
         supa.from('metas').delete().eq('user_id', uid),
@@ -3635,36 +3686,40 @@ async function limparDados() {
         supa.from('recorrentes').delete().eq('user_id', uid),
         supa.from('categorias').delete().eq('user_id', uid),
       ]);
+      // Log erros se houver
+      results.forEach(function(r, i) {
+        if (r.error) console.error('Erro deletando tabela ' + i + ':', r.error);
+      });
     } catch(e) {
       console.error('Erro ao limpar Supabase:', e);
+      toast('Erro ao apagar dados do servidor. Tente novamente.', 'error');
+      return;
     }
   }
 
-  // Zera state
+  // Limpa TODO o localStorage
+  Object.keys(STORAGE_KEYS).forEach(function(key) {
+    localStorage.removeItem(STORAGE_KEYS[key]);
+  });
+
+  // Recria categorias padrão no state
   state.transacoes = [];
   state.contas = [];
   state.metas = [];
-  state.categorias = [];
   state.recorrentes = [];
   state.cartoes = [];
   state.gastosCartao = [];
   state.orcamentos = [];
-
-  // Salva local (usa _origSave pra garantir que grava no localStorage)
-  Object.keys(STORAGE_KEYS).forEach(function(key) {
-    if (state[key] !== undefined) {
-      localStorage.setItem(STORAGE_KEYS[key], JSON.stringify(state[key]));
-    }
-  });
-
-  // Recria categorias padrão
+  state.categorias = [];
   initDefaultCategorias();
+
+  // Sync categorias pro Supabase
   if (currentUser) {
     try { await syncCategoriasToSupabase(); } catch(e) {}
   }
 
-  toast('Dados apagados. App zerado!');
-  renderDashboard();
+  toast('Dados apagados! Recarregando...');
+  setTimeout(function() { window.location.reload(); }, 1000);
 }
 
 // ═══════════════════════════════════════════════════
