@@ -555,6 +555,97 @@
       line-height: 1.7;
     }
 
+
+    /* ── PORTFÓLIO ── */
+    #portfolio {
+      padding: 120px 0;
+      border-top: 1px solid var(--gray2);
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 64px;
+    }
+
+    .portfolio-card {
+      background: var(--gray1);
+      border: 1px solid var(--gray2);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: default;
+    }
+    .portfolio-card:hover {
+      border-color: var(--blue);
+      transform: translateY(-4px);
+    }
+
+    .portfolio-preview {
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .portfolio-body {
+      padding: 24px;
+    }
+
+    .portfolio-type {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--blue);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .portfolio-name {
+      font-family: 'Sora', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .portfolio-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .portfolio-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .portfolio-tag {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--light);
+      background: var(--gray2);
+      border: 1px solid var(--gray3);
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+
+    .portfolio-tag.blue {
+      color: var(--blue);
+      background: rgba(59,130,246,0.08);
+      border-color: rgba(59,130,246,0.3);
+    }
+
+    @media (max-width: 768px) {
+      .portfolio-grid { grid-template-columns: 1fr; }
+    }
+
     /* ── CTA SECTION ── */
     #contato {
       padding: 120px 0;
@@ -709,6 +800,7 @@
       <li><a href="#servicos">Serviços</a></li>
       <li><a href="#como-funciona">Como funciona</a></li>
       <li><a href="#diferenciais">Por que eu</a></li>
+      <li><a href="#portfolio">Portfólio</a></li>
       <li><a href="#contato" class="nav-cta">Falar agora</a></li>
     </ul>
   </nav>
@@ -910,6 +1002,175 @@
           <div class="diff-title">Preço justo</div>
           <div class="diff-desc">Qualidade de agência grande com preço de profissional independente. Você paga pelo resultado, não pela estrutura.</div>
         </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PORTFÓLIO -->
+  <section id="portfolio">
+    <div class="container">
+      <span class="section-label">Portfólio</span>
+      <h2 class="section-title">Projetos que<br>entregam resultado</h2>
+      <p class="section-sub">Alguns dos trabalhos desenvolvidos para negócios que queriam crescer no digital.</p>
+
+      <div class="portfolio-grid">
+
+        <!-- Card 1 — ogabrieltech -->
+        <div class="portfolio-card">
+          <div class="portfolio-preview" style="background:#000;">
+            <svg width="100%" height="100%" viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
+              <rect width="500" height="200" fill="#000"/>
+              <line x1="0" y1="0" x2="500" y2="0" stroke="#1a1a1a" stroke-width="40"/>
+              <rect x="0" y="0" width="500" height="40" fill="#111"/>
+              <circle cx="20" cy="20" r="6" fill="#2a2a2a"/>
+              <circle cx="38" cy="20" r="6" fill="#2a2a2a"/>
+              <circle cx="56" cy="20" r="6" fill="#2a2a2a"/>
+              <rect x="180" y="12" width="140" height="16" rx="4" fill="#1a1a1a"/>
+              <rect x="30" y="70" width="200" height="20" rx="3" fill="#1a1a1a"/>
+              <rect x="30" y="98" width="140" height="12" rx="3" fill="#3B82F6" opacity=".7"/>
+              <rect x="30" y="118" width="280" height="8" rx="2" fill="#2a2a2a"/>
+              <rect x="30" y="132" width="220" height="8" rx="2" fill="#2a2a2a"/>
+              <rect x="30" y="155" width="90" height="28" rx="6" fill="#3B82F6"/>
+              <rect x="280" y="60" width="190" height="120" rx="8" fill="#111" stroke="#2a2a2a" stroke-width="1"/>
+              <rect x="295" y="75" width="160" height="10" rx="2" fill="#1a1a1a"/>
+              <rect x="295" y="93" width="120" height="8" rx="2" fill="#2a2a2a"/>
+              <rect x="295" y="107" width="140" height="8" rx="2" fill="#2a2a2a"/>
+              <rect x="295" y="125" width="80" height="22" rx="4" fill="#3B82F6"/>
+            </svg>
+          </div>
+          <div class="portfolio-body">
+            <div class="portfolio-type">Site Institucional</div>
+            <div class="portfolio-name">ogabrieltech.com.br</div>
+            <div class="portfolio-desc">Landing page profissional com SEO otimizado, animações, seção de serviços e CTA integrado com WhatsApp.</div>
+            <div class="portfolio-tags">
+              <span class="portfolio-tag blue">HTML/CSS</span>
+              <span class="portfolio-tag blue">JavaScript</span>
+              <span class="portfolio-tag">SEO</span>
+              <span class="portfolio-tag">Vercel</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 — Barbearia -->
+        <div class="portfolio-card">
+          <div class="portfolio-preview" style="background:#0a0a08;">
+            <svg width="100%" height="100%" viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
+              <rect width="500" height="200" fill="#0a0a08"/>
+              <rect x="0" y="0" width="500" height="200" fill="url(#bg-barb)" opacity=".15"/>
+              <rect x="0" y="0" width="500" height="44" fill="#111108"/>
+              <text x="30" y="28" font-family="serif" font-size="14" font-weight="700" fill="#c9a84c">BARBEARIA ESTILO</text>
+              <rect x="360" y="12" width="110" height="22" rx="4" fill="#c9a84c"/>
+              <text x="365" y="27" font-family="sans-serif" font-size="10" font-weight="600" fill="#000">AGENDAR HORÁRIO</text>
+              <rect x="30" y="70" width="240" height="22" rx="2" fill="#1a1a14"/>
+              <rect x="30" y="70" width="180" height="22" rx="2" fill="#c9a84c" opacity=".8"/>
+              <text x="33" y="86" font-family="serif" font-size="13" font-weight="700" fill="#0a0a08">TRADIÇÃO E ESTILO</text>
+              <rect x="30" y="100" width="200" height="7" rx="2" fill="#2a2a20"/>
+              <rect x="30" y="113" width="160" height="7" rx="2" fill="#2a2a20"/>
+              <rect x="30" y="135" width="100" height="28" rx="4" fill="#c9a84c"/>
+              <text x="38" y="153" font-family="sans-serif" font-size="10" font-weight="600" fill="#0a0a08">AGENDAR AGORA</text>
+              <rect x="290" y="55" width="180" height="125" rx="6" fill="#1a1a14" stroke="#c9a84c" stroke-width="1" opacity=".6"/>
+              <rect x="302" y="67" width="156" height="80" rx="4" fill="#2a2a20"/>
+              <rect x="302" y="155" width="70" height="14" rx="2" fill="#c9a84c" opacity=".6"/>
+            </svg>
+          </div>
+          <div class="portfolio-body">
+            <div class="portfolio-type">Landing Page</div>
+            <div class="portfolio-name">Barbearia Estilo</div>
+            <div class="portfolio-desc">Landing page para barbearia com agendamento online integrado, galeria de serviços e depoimentos de clientes.</div>
+            <div class="portfolio-tags">
+              <span class="portfolio-tag blue">HTML/CSS</span>
+              <span class="portfolio-tag blue">JavaScript</span>
+              <span class="portfolio-tag">WhatsApp API</span>
+              <span class="portfolio-tag">Mobile First</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 — Clínica -->
+        <div class="portfolio-card">
+          <div class="portfolio-preview" style="background:#f8f9fc;">
+            <svg width="100%" height="100%" viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
+              <rect width="500" height="200" fill="#f8f9fc"/>
+              <rect x="0" y="0" width="500" height="48" fill="#fff" stroke="#e8eaf0" stroke-width="1"/>
+              <text x="28" y="30" font-family="sans-serif" font-size="13" font-weight="700" fill="#1a1a2e">Clínica BemEstar</text>
+              <rect x="360" y="12" width="110" height="24" rx="6" fill="#3B82F6"/>
+              <text x="370" y="28" font-family="sans-serif" font-size="10" font-weight="600" fill="#fff">AGENDAR CONSULTA</text>
+              <rect x="28" y="68" width="260" height="16" rx="3" fill="#e8eaf0"/>
+              <rect x="28" y="68" width="180" height="16" rx="3" fill="#3B82F6" opacity=".12"/>
+              <text x="28" y="81" font-family="sans-serif" font-size="11" font-weight="700" fill="#1a1a2e">Sua saúde em boas mãos</text>
+              <rect x="28" y="92" width="200" height="7" rx="2" fill="#d0d3e0"/>
+              <rect x="28" y="104" width="160" height="7" rx="2" fill="#d0d3e0"/>
+              <rect x="28" y="124" width="110" height="28" rx="6" fill="#3B82F6"/>
+              <text x="36" y="142" font-family="sans-serif" font-size="10" font-weight="600" fill="#fff">SAIBA MAIS</text>
+              <rect x="300" y="58" width="170" height="120" rx="10" fill="#fff" stroke="#e0e3ee" stroke-width="1"/>
+              <rect x="315" y="72" width="140" height="72" rx="6" fill="#f0f2f9"/>
+              <rect x="315" y="152" width="90" height="10" rx="2" fill="#d0d3e0"/>
+            </svg>
+          </div>
+          <div class="portfolio-body">
+            <div class="portfolio-type">Landing Page</div>
+            <div class="portfolio-name">Clínica BemEstar</div>
+            <div class="portfolio-desc">Site institucional para clínica de estética com página de serviços, formulário de agendamento e integração com Google Agenda.</div>
+            <div class="portfolio-tags">
+              <span class="portfolio-tag blue">HTML/CSS</span>
+              <span class="portfolio-tag blue">JavaScript</span>
+              <span class="portfolio-tag">Google API</span>
+              <span class="portfolio-tag">SEO Local</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 — Sistema -->
+        <div class="portfolio-card">
+          <div class="portfolio-preview" style="background:#080c14;">
+            <svg width="100%" height="100%" viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
+              <rect width="500" height="200" fill="#080c14"/>
+              <rect x="0" y="0" width="120" height="200" fill="#0d1525"/>
+              <rect x="10" y="20" width="100" height="14" rx="3" fill="#1a2a45"/>
+              <rect x="10" y="44" width="80" height="10" rx="2" fill="#3B82F6" opacity=".8"/>
+              <rect x="10" y="62" width="90" height="10" rx="2" fill="#1a2a45"/>
+              <rect x="10" y="78" width="85" height="10" rx="2" fill="#1a2a45"/>
+              <rect x="10" y="94" width="75" height="10" rx="2" fill="#1a2a45"/>
+              <rect x="10" y="110" width="88" height="10" rx="2" fill="#1a2a45"/>
+              <rect x="130" y="10" width="160" height="80" rx="6" fill="#0d1525" stroke="#1a2a45" stroke-width="1"/>
+              <text x="142" y="32" font-family="sans-serif" font-size="9" fill="#7ba3d4">Total de Clientes</text>
+              <text x="142" y="56" font-family="sans-serif" font-size="22" font-weight="700" fill="#fff">248</text>
+              <rect x="142" y="68" width="40" height="8" rx="2" fill="#22c55e" opacity=".3"/>
+              <text x="142" y="76" font-family="sans-serif" font-size="8" fill="#22c55e">+12% este mês</text>
+              <rect x="300" y="10" width="185" height="80" rx="6" fill="#0d1525" stroke="#1a2a45" stroke-width="1"/>
+              <text x="312" y="32" font-family="sans-serif" font-size="9" fill="#7ba3d4">Faturamento Mensal</text>
+              <text x="312" y="56" font-family="sans-serif" font-size="18" font-weight="700" fill="#3B82F6">R$ 18.450</text>
+              <rect x="130" y="100" width="355" height="88" rx="6" fill="#0d1525" stroke="#1a2a45" stroke-width="1"/>
+              <text x="142" y="118" font-family="sans-serif" font-size="9" fill="#7ba3d4">Últimos pedidos</text>
+              <rect x="142" y="126" width="325" height="1" fill="#1a2a45"/>
+              <rect x="142" y="134" width="80" height="8" rx="2" fill="#1a2a45"/>
+              <rect x="280" y="134" width="60" height="8" rx="2" fill="#1a2a45"/>
+              <rect x="380" y="132" width="50" height="10" rx="3" fill="#22c55e" opacity=".2"/>
+              <text x="384" y="141" font-family="sans-serif" font-size="7" fill="#22c55e">Concluído</text>
+              <rect x="142" y="150" width="90" height="8" rx="2" fill="#1a2a45"/>
+              <rect x="280" y="150" width="60" height="8" rx="2" fill="#1a2a45"/>
+              <rect x="380" y="148" width="50" height="10" rx="3" fill="#f59e0b" opacity=".2"/>
+              <text x="387" y="157" font-family="sans-serif" font-size="7" fill="#f59e0b">Pendente</text>
+              <rect x="142" y="166" width="70" height="8" rx="2" fill="#1a2a45"/>
+              <rect x="280" y="166" width="60" height="8" rx="2" fill="#1a2a45"/>
+              <rect x="380" y="164" width="50" height="10" rx="3" fill="#22c55e" opacity=".2"/>
+              <text x="384" y="173" font-family="sans-serif" font-size="7" fill="#22c55e">Concluído</text>
+            </svg>
+          </div>
+          <div class="portfolio-body">
+            <div class="portfolio-type">Sistema Web</div>
+            <div class="portfolio-name">Dashboard de Gestão</div>
+            <div class="portfolio-desc">Sistema de gestão com painel administrativo, controle de clientes, pedidos e relatórios financeiros em tempo real.</div>
+            <div class="portfolio-tags">
+              <span class="portfolio-tag blue">Node.js</span>
+              <span class="portfolio-tag blue">React</span>
+              <span class="portfolio-tag">MySQL</span>
+              <span class="portfolio-tag">REST API</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
