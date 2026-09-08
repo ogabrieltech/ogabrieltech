@@ -44,6 +44,21 @@ Tenho experiência com análise de necessidades, desenvolvimento de soluções d
 
 ## Projetos em destaque
 
+### Conversor DANFE
+Aplicativo desktop em Python para converter XMLs autorizados de NF-e modelo 55 em DANFE PDF.
+
+O projeto processa XMLs, ZIPs e pastas inteiras localmente, valida o protocolo de autorização, organiza os PDFs automaticamente e gera relatório CSV do lote.
+
+**Áreas trabalhadas:**
+- Python e Tkinter
+- Processamento de XML
+- Automação de documentos
+- Validação e tratamento de dados
+- Geração e consolidação de PDFs
+- Interface desktop e CLI
+
+[Ver página do projeto](https://ogabrieltech.com.br/projetos/conversor-danfe.html)
+
 ### FinanceOS
 Projeto voltado à organização e ao controle financeiro pessoal e empresarial.
 
