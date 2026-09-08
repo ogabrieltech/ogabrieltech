@@ -56,8 +56,9 @@ O projeto processa XMLs, ZIPs e pastas inteiras localmente, valida o protocolo d
 - Validação e tratamento de dados
 - Geração e consolidação de PDFs
 - Interface desktop e CLI
+- Testes automatizados e GitHub Actions
 
-[Ver página do projeto](https://ogabrieltech.com.br/projetos/conversor-danfe.html)
+[Ver repositório](https://github.com/ogabrieltech/conversor-danfe) · [Ver página do projeto](https://ogabrieltech.com.br/projetos/conversor-danfe.html)
 
 ### FinanceOS
 Projeto voltado à organização e ao controle financeiro pessoal e empresarial.
