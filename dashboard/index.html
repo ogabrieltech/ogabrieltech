@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="theme-color" content="#09070f" />
+  <title>GTECH Desk</title>
+  <style>
+    :root{
+      --bg:#08060f;
+      --bg2:#0d0917;
+      --panel:rgba(18,14,29,.88);
+      --panel2:rgba(23,17,39,.82);
+      --text:#f7f4ff;
+      --muted:#9d95ad;
+      --purple:#8b5cf6;
+      --purple2:#6d28d9;
+      --purple3:#c4b5fd;
+      --line:rgba(167,139,250,.16);
+      --green:#59d499;
+      --yellow:#f0c96b;
+      --shadow:0 24px 60px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+    body:before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 15% 10%,rgba(124,58,237,.22),transparent 28%),radial-gradient(circle at 86% 90%,rgba(139,92,246,.12),transparent 28%);pointer-events:none}
+    body:after{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(167,139,250,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(167,139,250,.025) 1px,transparent 1px);background-size:42px 42px;pointer-events:none;opacity:.7}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit;color:inherit}
+    .app{position:relative;z-index:1;height:100vh;padding:18px;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);grid-template-rows:auto 1fr auto;gap:14px}
+    .panel{border:1px solid var(--line);background:linear-gradient(145deg,var(--panel),rgba(10,8,17,.9));border-radius:22px;box-shadow:var(--shadow);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+    .top{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:12px 16px;background:rgba(9,7,15,.76);border:1px solid var(--line);border-radius:18px}
+    .brand{display:flex;align-items:center;gap:11px;min-width:0}
+    .logo{width:37px;height:37px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--purple),var(--purple2));font-size:11px;font-weight:900;box-shadow:0 10px 26px rgba(124,58,237,.35)}
+    .brand strong{display:block;font-size:13px;letter-spacing:-.01em}.brand span{display:block;color:var(--muted);font-size:9px;margin-top:2px;text-transform:uppercase;letter-spacing:.12em}
+    .status{display:flex;align-items:center;gap:8px;color:#cfc8dc;font-size:10px;white-space:nowrap}.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px rgba(89,212,153,.7)}
+    .main{padding:22px;display:grid;grid-template-rows:auto 1fr;min-height:0;overflow:hidden}
+    .clock{font-size:clamp(72px,10.5vw,148px);line-height:.82;letter-spacing:-.08em;font-weight:900;margin:0;background:linear-gradient(100deg,#fff 0%,#e8defe 32%,#b496ff 75%,#8653ed 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .date{margin-top:14px;color:#bdb4ca;font-size:clamp(14px,1.55vw,19px);text-transform:capitalize}
+    .focus-wrap{align-self:end;margin-top:20px}
+    .eyebrow{color:var(--purple3);font-size:9px;text-transform:uppercase;letter-spacing:.18em;font-weight:800;margin-bottom:9px}
+    .focus-title{font-size:clamp(22px,2.7vw,37px);line-height:1.05;letter-spacing:-.045em;margin:0 0 10px;max-width:760px}
+    .focus-sub{color:var(--muted);font-size:12px;line-height:1.55;max-width:650px;margin:0}
+    .focus-actions{margin-top:15px;display:flex;gap:8px;flex-wrap:wrap}
+    .chip-btn{border:1px solid rgba(167,139,250,.2);background:rgba(139,92,246,.08);border-radius:999px;padding:8px 11px;font-size:9px;cursor:pointer;transition:.2s}
+    .chip-btn:active{transform:scale(.98);background:rgba(139,92,246,.18)}
+    .side{display:grid;grid-template-rows:auto 1fr;gap:14px;min-height:0}
+    .projects{padding:17px;min-height:0}
+    .section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.section-title h2{margin:0;font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:#d8d0e6}.section-title span{font-size:9px;color:#766e82}
+    .project-list{display:grid;gap:8px}
+    .project{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 12px;border:1px solid rgba(167,139,250,.11);background:rgba(255,255,255,.018);border-radius:13px;transition:.18s}
+    .project:active{background:rgba(139,92,246,.08)}
+    .project-name{min-width:0}.project-name strong{display:block;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.project-name span{display:block;color:#81798e;font-size:8px;margin-top:3px}
+    .badge{font-size:8px;border-radius:999px;padding:5px 7px;border:1px solid rgba(89,212,153,.23);color:#8ce3b8;background:rgba(89,212,153,.07);white-space:nowrap}
+    .quick{padding:17px;min-height:0}
+    .quick-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+    .quick a{min-height:54px;border:1px solid rgba(167,139,250,.11);border-radius:13px;background:rgba(255,255,255,.018);display:flex;align-items:center;gap:9px;padding:10px;transition:.18s}.quick a:active{background:rgba(139,92,246,.1);transform:scale(.985)}
+    .icon{width:28px;height:28px;border-radius:9px;background:#171123;border:1px solid rgba(167,139,250,.13);display:grid;place-items:center;font-size:11px;font-weight:900;color:var(--purple3);flex:0 0 auto}.quick strong{font-size:9px;display:block}.quick span{font-size:7px;color:#776f83;display:block;margin-top:2px}
+    .bottom{grid-column:1/-1;display:grid;grid-template-columns:1fr auto;align-items:center;gap:14px;padding:10px 13px;border:1px solid var(--line);border-radius:16px;background:rgba(9,7,15,.72);color:#7f778d;font-size:8px;letter-spacing:.06em}
+    .bottom strong{color:#bcb4c9;font-weight:700}.weather{display:flex;align-items:center;gap:7px;color:#bfb7cc}.weather-dot{width:5px;height:5px;border-radius:50%;background:var(--yellow)}
+    @media(max-width:760px){html,body{overflow:auto}.app{height:auto;min-height:100vh;grid-template-columns:1fr;grid-template-rows:auto auto auto auto;padding:12px}.top,.bottom{grid-column:1}.main{min-height:52vh}.clock{font-size:clamp(70px,23vw,120px)}.side{grid-template-rows:auto auto}.quick-grid{grid-template-columns:repeat(4,1fr)}.quick a{flex-direction:column;justify-content:center;text-align:center;padding:8px}.quick span{display:none}.bottom{grid-template-columns:1fr}}
+    @media(max-height:560px) and (min-width:761px){.app{padding:10px;gap:9px}.top{padding:8px 12px}.logo{width:31px;height:31px}.main{padding:15px}.clock{font-size:clamp(64px,10vw,108px)}.date{margin-top:8px}.focus-wrap{margin-top:12px}.focus-title{font-size:clamp(20px,2.2vw,29px)}.focus-sub{font-size:10px}.projects,.quick{padding:12px}.project{padding:8px 10px}.quick a{min-height:43px}.bottom{padding:7px 10px}}
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="top">
+      <div class="brand">
+        <div class="logo">GS</div>
+        <div><strong>GTECH Desk</strong><span>painel pessoal</span></div>
+      </div>
+      <div class="status"><i class="dot"></i><span id="onlineText">painel online</span></div>
+    </header>
+
+    <section class="panel main">
+      <div>
+        <h1 class="clock" id="clock">--:--</h1>
+        <div class="date" id="date">Carregando data...</div>
+      </div>
+      <div class="focus-wrap">
+        <div class="eyebrow">Foco do dia</div>
+        <h2 class="focus-title" id="focusTitle">Construir, vender e evoluir um passo por vez.</h2>
+        <p class="focus-sub" id="focusSub">Use este painel como sua tela de apoio no setup. O foco fica salvo neste dispositivo.</p>
+        <div class="focus-actions">
+          <button class="chip-btn" type="button" onclick="editFocus()">Editar foco</button>
+          <button class="chip-btn" type="button" onclick="resetFocus()">Restaurar</button>
+        </div>
+      </div>
+    </section>
+
+    <aside class="side">
+      <section class="panel projects">
+        <div class="section-title"><h2>Projetos</h2><span>GTECH</span></div>
+        <div class="project-list">
+          <a class="project" href="https://ogabrieltech.com.br/" target="_blank" rel="noreferrer"><div class="project-name"><strong>ogabrieltech</strong><span>site & marca pessoal</span></div><span class="badge">ONLINE</span></a>
+          <a class="project" href="https://github.com/ogabrieltech/nort" target="_blank" rel="noreferrer"><div class="project-name"><strong>Nort</strong><span>finanças pessoais</span></div><span class="badge">ATIVO</span></a>
+          <a class="project" href="https://github.com/ogabrieltech" target="_blank" rel="noreferrer"><div class="project-name"><strong>PuxAI</strong><span>automação & atendimento</span></div><span class="badge">ATIVO</span></a>
+          <a class="project" href="https://github.com/ogabrieltech/pcp360" target="_blank" rel="noreferrer"><div class="project-name"><strong>PCP360</strong><span>produção & análise</span></div><span class="badge">ATIVO</span></a>
+        </div>
+      </section>
+
+      <section class="panel quick">
+        <div class="section-title"><h2>Atalhos</h2><span>toque para abrir</span></div>
+        <div class="quick-grid">
+          <a href="https://github.com/ogabrieltech" target="_blank" rel="noreferrer"><div class="icon">GH</div><div><strong>GitHub</strong><span>repositórios</span></div></a>
+          <a href="https://railway.app/dashboard" target="_blank" rel="noreferrer"><div class="icon">RW</div><div><strong>Railway</strong><span>deploys</span></div></a>
+          <a href="https://todoist.com/app" target="_blank" rel="noreferrer"><div class="icon">TD</div><div><strong>Todoist</strong><span>tarefas</span></div></a>
+          <a href="https://mail.google.com/" target="_blank" rel="noreferrer"><div class="icon">GM</div><div><strong>Gmail</strong><span>caixa de entrada</span></div></a>
+        </div>
+      </section>
+    </aside>
+
+    <footer class="bottom">
+      <div><strong>GTECH Desk</strong> · dashboard para Echo Show / telas auxiliares</div>
+      <div class="weather"><i class="weather-dot"></i><span id="connection">conectado</span></div>
+    </footer>
+  </main>
+
+  <script>
+    (function(){
+      var defaultTitle = 'Construir, vender e evoluir um passo por vez.';
+      var defaultSub = 'Use este painel como sua tela de apoio no setup. O foco fica salvo neste dispositivo.';
+
+      function pad(n){ return n < 10 ? '0' + n : '' + n; }
+      function updateClock(){
+        var now = new Date();
+        document.getElementById('clock').textContent = pad(now.getHours()) + ':' + pad(now.getMinutes());
+        try{
+          document.getElementById('date').textContent = now.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
+        }catch(e){
+          document.getElementById('date').textContent = pad(now.getDate()) + '/' + pad(now.getMonth()+1) + '/' + now.getFullYear();
+        }
+      }
+
+      function loadFocus(){
+        try{
+          var title = localStorage.getItem('gtech_focus_title');
+          var sub = localStorage.getItem('gtech_focus_sub');
+          if(title){ document.getElementById('focusTitle').textContent = title; }
+          if(sub){ document.getElementById('focusSub').textContent = sub; }
+        }catch(e){}
+      }
+
+      window.editFocus = function(){
+        var current = document.getElementById('focusTitle').textContent;
+        var value = window.prompt('Qual é o foco principal de hoje?', current);
+        if(value && value.replace(/\s/g,'').length){
+          document.getElementById('focusTitle').textContent = value;
+          try{ localStorage.setItem('gtech_focus_title', value); }catch(e){}
+        }
+      };
+
+      window.resetFocus = function(){
+        document.getElementById('focusTitle').textContent = defaultTitle;
+        document.getElementById('focusSub').textContent = defaultSub;
+        try{
+          localStorage.removeItem('gtech_focus_title');
+          localStorage.removeItem('gtech_focus_sub');
+        }catch(e){}
+      };
+
+      function updateConnection(){
+        var online = navigator.onLine !== false;
+        document.getElementById('connection').textContent = online ? 'conectado' : 'sem conexão';
+        document.getElementById('onlineText').textContent = online ? 'painel online' : 'modo offline';
+      }
+
+      updateClock();
+      loadFocus();
+      updateConnection();
+      setInterval(updateClock, 1000);
+      window.addEventListener('online', updateConnection);
+      window.addEventListener('offline', updateConnection);
+    })();
+  </script>
+</body>
+</html>
