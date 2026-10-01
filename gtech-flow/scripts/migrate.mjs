@@ -1,5 +1,6 @@
 import postgres from "postgres";
 import bcrypt from "bcryptjs";
+import { createHash, randomBytes } from "node:crypto";
 
 const connectionString = process.env.DATABASE_URL;
 if (!connectionString) {
@@ -8,6 +9,7 @@ if (!connectionString) {
 }
 
 const sql = postgres(connectionString, { max: 1, prepare: false });
+const hashToken = (value) => createHash("sha256").update(value).digest("hex");
 
 try {
   await sql.unsafe(`
@@ -29,7 +31,7 @@ try {
       name text not null,
       password_hash text not null,
       role text not null default 'admin' check (role in ('admin','agent')),
-      must_change_password boolean not null default true,
+      must_change_password boolean not null default false,
       created_at timestamptz not null default now(),
       updated_at timestamptz not null default now()
     );
@@ -39,6 +41,14 @@ try {
       user_id uuid not null references users(id) on delete cascade,
       token_hash text not null unique,
       expires_at timestamptz not null,
+      created_at timestamptz not null default now()
+    );
+
+    create table if not exists setup_tokens (
+      id uuid primary key default gen_random_uuid(),
+      workspace_id uuid not null unique references workspaces(id) on delete cascade,
+      token_hash text not null,
+      used_at timestamptz,
       created_at timestamptz not null default now()
     );
 
@@ -146,21 +156,64 @@ try {
     returning id, name, slug
   `;
 
-  const adminEmail = (process.env.PUXAI_ADMIN_EMAIL || "admin@puxai.local").toLowerCase();
-  const adminPassword = process.env.PUXAI_ADMIN_PASSWORD || "Puxai#Teste2026!";
-  const adminName = process.env.PUXAI_ADMIN_NAME || "Administrador";
-  const passwordHash = await bcrypt.hash(adminPassword, 12);
+  // Optional fully automated bootstrap for private deployments. In the hosted Puxaí
+  // environment no password is stored in source or Railway variables; a one-time
+  // setup token is generated instead.
+  if (process.env.PUXAI_ADMIN_PASSWORD && process.env.PUXAI_ADMIN_EMAIL) {
+    const adminEmail = process.env.PUXAI_ADMIN_EMAIL.toLowerCase().trim();
+    const adminName = process.env.PUXAI_ADMIN_NAME || "Administrador";
+    const passwordHash = await bcrypt.hash(process.env.PUXAI_ADMIN_PASSWORD, 12);
+    await sql`
+      insert into users (workspace_id, email, name, password_hash, role, must_change_password)
+      values (${workspace.id}, ${adminEmail}, ${adminName}, ${passwordHash}, 'admin', false)
+      on conflict (email) do nothing
+    `;
+    await sql`delete from setup_tokens where workspace_id = ${workspace.id}`;
+  } else {
+    // Remove only the known temporary account from early MVP deploys, and only if
+    // the password had never been changed (must_change_password=true).
+    await sql`
+      delete from sessions
+      where user_id in (
+        select id from users where workspace_id=${workspace.id}
+          and email='admin@puxai.local' and must_change_password=true
+      )
+    `;
+    await sql`
+      delete from users
+      where workspace_id=${workspace.id}
+        and email='admin@puxai.local' and must_change_password=true
+    `;
 
-  await sql`
-    insert into users (workspace_id, email, name, password_hash, role, must_change_password)
-    values (${workspace.id}, ${adminEmail}, ${adminName}, ${passwordHash}, 'admin', true)
-    on conflict (email) do nothing
-  `;
+    const [{ count: userCount }] = await sql`
+      select count(*)::int as count from users where workspace_id = ${workspace.id}
+    `;
+    if (userCount === 0) {
+      const setupToken = randomBytes(24).toString("base64url");
+      await sql`
+        insert into setup_tokens (workspace_id, token_hash, used_at, created_at)
+        values (${workspace.id}, ${hashToken(setupToken)}, null, now())
+        on conflict (workspace_id) do update
+          set token_hash=excluded.token_hash, used_at=null, created_at=now()
+      `;
+      console.log(`PUXAI_SETUP_TOKEN=${setupToken}`);
+    } else {
+      await sql`delete from setup_tokens where workspace_id=${workspace.id} and used_at is null`;
+    }
+  }
 
+  const channelStatus = process.env.WHATSAPP_ACCESS_TOKEN && process.env.WHATSAPP_PHONE_NUMBER_ID ? "connected" : "not_configured";
   await sql`
-    insert into whatsapp_channels (workspace_id, status)
-    values (${workspace.id}, 'not_configured')
-    on conflict (workspace_id) do nothing
+    insert into whatsapp_channels (workspace_id, phone_number_id, business_account_id, status)
+    values (
+      ${workspace.id}, ${process.env.WHATSAPP_PHONE_NUMBER_ID || null},
+      ${process.env.WHATSAPP_BUSINESS_ACCOUNT_ID || null}, ${channelStatus}
+    )
+    on conflict (workspace_id) do update set
+      phone_number_id = coalesce(excluded.phone_number_id, whatsapp_channels.phone_number_id),
+      business_account_id = coalesce(excluded.business_account_id, whatsapp_channels.business_account_id),
+      status = excluded.status,
+      updated_at = now()
   `;
 
   const [{ count: teamCount }] = await sql`
