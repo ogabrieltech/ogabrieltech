@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GTECH Desk · Configuração</title>
+  <style>
+    :root{--bg:#08060f;--panel:#12101d;--text:#f7f5ff;--muted:#9a92a7;--line:rgba(167,139,250,.17);--p:#8b5cf6;--p2:#6d28d9;--green:#58d39a;--red:#ff6b7a}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 10%,rgba(124,58,237,.18),transparent 28%),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}.wrap{max-width:920px;margin:0 auto;padding:30px 18px 70px}.top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px}.brand{display:flex;align-items:center;gap:12px}.logo{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,var(--p),var(--p2));font-size:11px;font-weight:900}.brand h1{font-size:19px;margin:0}.brand p{font-size:10px;color:var(--muted);margin:4px 0 0}.back{color:#cfc7db;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:9px 12px;font-size:10px}.card{background:linear-gradient(145deg,rgba(20,16,33,.95),rgba(9,7,15,.95));border:1px solid var(--line);border-radius:19px;padding:20px;margin-bottom:14px}.card h2{font-size:13px;margin:0 0 6px}.card>p{margin:0 0 16px;color:var(--muted);font-size:11px;line-height:1.55}.field{display:grid;gap:6px;margin-top:12px}.field label{font-size:9px;color:#bbb3c8;text-transform:uppercase;letter-spacing:.11em}.field input,.field select{width:100%;background:#0d0a16;border:1px solid var(--line);border-radius:11px;color:var(--text);padding:11px;font-size:11px;outline:none}.field input:focus{border-color:rgba(139,92,246,.6)}.service{display:grid;grid-template-columns:1fr 130px 2fr auto;gap:8px;margin:8px 0}.btn{border:1px solid var(--line);background:rgba(139,92,246,.08);color:#ddd5e8;border-radius:11px;padding:10px 12px;font-size:10px;cursor:pointer}.btn.primary{background:linear-gradient(135deg,var(--p),var(--p2));border-color:transparent;font-weight:800}.btn.danger{color:#ff9ca6}.actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:16px}.status{font-size:10px;color:var(--muted)}.ok{color:var(--green)}.bad{color:var(--red)}code{font:10px ui-monospace,SFMono-Regular,Consolas,monospace;color:#d7c8ff;background:#0e0a18;border:1px solid var(--line);padding:2px 5px;border-radius:5px}@media(max-width:720px){.service{grid-template-columns:1fr}.top{align-items:flex-start}.back{white-space:nowrap}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><div class="brand"><div class="logo">GS</div><div><h1>GTECH Desk</h1><p>Configuração local do painel</p></div></div><a class="back" href="/">Voltar ao painel</a></div>
+
+  <section class="card">
+    <h2>Todoist</h2>
+    <p>O token fica salvo apenas neste PC em <code>config.local.json</code>. Deixe o campo vazio para manter o token atual.</p>
+    <div class="field"><label>Token da API</label><input id="todoistToken" type="password" placeholder="Cole o token pessoal do Todoist" autocomplete="off" /></div>
+    <div class="actions"><button class="btn danger" onclick="clearTodoist()">Remover token salvo</button><span id="todoStatus" class="status">Verificando...</span></div>
+  </section>
+
+  <section class="card">
+    <h2>Status dos serviços</h2>
+    <p>O agente testa as URLs e mostra ONLINE/OFFLINE no painel. Serve para Railway, Vercel ou qualquer outro serviço web.</p>
+    <div id="services"></div>
+    <div class="actions"><button class="btn" onclick="addService()">Adicionar serviço</button></div>
+  </section>
+
+  <section class="card">
+    <h2>Salvar</h2>
+    <p>As alterações são aplicadas imediatamente. Depois abra na Echo o endereço mostrado pela janela do agente, normalmente <code>http://IP-DO-PC:8765</code>.</p>
+    <div class="actions"><button class="btn primary" onclick="saveConfig()">Salvar configurações</button><span id="saveStatus" class="status"></span></div>
+  </section>
+</div>
+<script>
+var services=[];
+function esc(s){return String(s||'').replace(/[&<>'"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]})}
+function renderServices(){var root=document.getElementById('services');if(!services.length){root.innerHTML='<p class="status">Nenhum serviço configurado.</p>';return}root.innerHTML=services.map(function(s,i){return '<div class="service"><input data-k="name" data-i="'+i+'" value="'+esc(s.name)+'" placeholder="Nome"><select data-k="platform" data-i="'+i+'"><option '+(s.platform==='Railway'?'selected':'')+'>Railway</option><option '+(s.platform==='Vercel'?'selected':'')+'>Vercel</option><option '+(s.platform==='Outro'?'selected':'')+'>Outro</option></select><input data-k="url" data-i="'+i+'" value="'+esc(s.url)+'" placeholder="https://seu-servico.com"><button class="btn danger" onclick="removeService('+i+')">Remover</button></div>'}).join('');root.querySelectorAll('input,select').forEach(function(el){el.addEventListener('input',function(){var i=parseInt(el.getAttribute('data-i'),10),k=el.getAttribute('data-k');services[i][k]=el.value})})}
+function addService(){services.push({name:'Novo serviço',platform:'Railway',url:''});renderServices()}
+function removeService(i){services.splice(i,1);renderServices()}
+function load(){fetch('/api/config').then(function(r){return r.json()}).then(function(d){services=d.services||[];renderServices();document.getElementById('todoStatus').innerHTML=d.todoist_configured?'<span class="ok">Token configurado</span>':'Nenhum token configurado'}).catch(function(){document.getElementById('todoStatus').innerHTML='<span class="bad">Falha ao carregar</span>'})}
+function saveConfig(){var btn=document.getElementById('saveStatus');btn.textContent='Salvando...';var payload={services:services};var token=document.getElementById('todoistToken').value.trim();if(token)payload.todoist_token=token;fetch('/api/config',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).then(function(r){if(!r.ok)throw new Error();return r.json()}).then(function(){document.getElementById('todoistToken').value='';btn.innerHTML='<span class="ok">Salvo.</span>';load()}).catch(function(){btn.innerHTML='<span class="bad">Não foi possível salvar.</span>'})}
+function clearTodoist(){if(!confirm('Remover o token do Todoist deste PC?'))return;fetch('/api/config',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({clear_todoist:true})}).then(function(){load()})}
+load();
+</script>
+</body>
+</html>
