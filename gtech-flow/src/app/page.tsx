@@ -33,8 +33,8 @@ export default function LandingPage() {
             <a href="#para-quem">Para quem é</a>
           </div>
           <div className={styles.navActions}>
-            <Link href="/app" className={styles.secondary}>Ver painel</Link>
-            <Link href="/app" className={styles.primary}>Testar Puxaí <ArrowRight size={15}/></Link>
+            <Link href="/login" className={styles.secondary}>Entrar</Link>
+            <Link href="/login" className={styles.primary}>Testar Puxaí <ArrowRight size={15}/></Link>
           </div>
         </nav>
       </header>
@@ -45,7 +45,7 @@ export default function LandingPage() {
           <h1>Seu WhatsApp recebe.<br/><span>O Puxaí direciona.</span></h1>
           <p>Automatize o primeiro atendimento, colete as informações que importam e leve cada cliente direto para o vendedor ou setor responsável.</p>
           <div className={styles.heroActions}>
-            <Link href="/app" className={styles.primaryLarge}>Ver demonstração <ArrowRight size={18}/></Link>
+            <Link href="/login" className={styles.primaryLarge}>Testar agora <ArrowRight size={18}/></Link>
             <a href="#como-funciona" className={styles.secondary}>Entender como funciona</a>
           </div>
           <p className={styles.microcopy}>Feito para pequenas e médias empresas que vivem no WhatsApp.</p>
@@ -108,7 +108,7 @@ export default function LandingPage() {
 
       <section className={styles.cta}>
         <div className={styles.container}>
-          <div className={styles.ctaBox}><div><h2>Pare de encaminhar atendimento na mão.</h2><p>Crie o caminho uma vez e deixe o Puxaí fazer a triagem.</p></div><Link href="/app" className={styles.ctaButton}>Conhecer o painel <ArrowRight size={17}/></Link></div>
+          <div className={styles.ctaBox}><div><h2>Pare de encaminhar atendimento na mão.</h2><p>Crie o caminho uma vez e deixe o Puxaí fazer a triagem.</p></div><Link href="/login" className={styles.ctaButton}>Acessar o painel <ArrowRight size={17}/></Link></div>
         </div>
       </section>
 
@@ -116,7 +116,7 @@ export default function LandingPage() {
         <div className={`${styles.container} ${styles.footerRow}`}>
           <div><Link href="/" className={styles.brand}><span className={styles.brandMark}>P</span><span>Puxaí <small>by ogabrieltech</small></span></Link></div>
           <p>© 2026 ogabrieltech. Todos os direitos reservados.</p>
-          <div className={styles.footerLinks}><a href="#recursos">Recursos</a><a href="#como-funciona">Como funciona</a><Link href="/app">Painel</Link></div>
+          <div className={styles.footerLinks}><a href="#recursos">Recursos</a><a href="#como-funciona">Como funciona</a><Link href="/login">Painel</Link></div>
         </div>
       </footer>
     </main>
