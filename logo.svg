@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 326 58" role="img" aria-labelledby="title">
+  <title id="title">Gabriel Santos — Sites &amp; Design</title>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#a47bff"/>
+      <stop offset="1" stop-color="#6f35ea"/>
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="55" height="55" rx="17" fill="#10132d"/>
+  <path d="M39.6 20.5A15 15 0 1 0 43 31H29" fill="none" stroke="url(#g)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="43" cy="17" r="3.3" fill="#bca1ff"/>
+  <text x="69" y="28" fill="#121329" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="800" letter-spacing="-.8">Gabriel Santos</text>
+  <text x="70" y="45" fill="#655f78" font-family="Arial,Helvetica,sans-serif" font-size="10" font-weight="700" letter-spacing="2.4">SITES &amp; DESIGN</text>
+</svg>
